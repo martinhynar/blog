@@ -1,0 +1,4 @@
+encoding: utf-8
+markdown: kramdown
+extensions: [fenced_code_blocks]
+highlighter: pygments

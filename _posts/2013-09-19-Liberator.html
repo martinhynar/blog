@@ -1,0 +1,219 @@
+---
+layout: slides
+title: "Liberator: REST in Clojure"
+abstract: Introduction to Liberator, a Clojure library that makes your trobles with REST easier. My presentation for <a href="https://plus.google.com/communities/110902954360410928675">Lambda Meetup Ostrava</a>.
+---
+
+
+
+<div class="reveal">
+
+    <!-- Any section element inside of this container is displayed as a slide -->
+    <div class="slides">
+
+        <section>
+            <h1>Liberator</h1>
+
+            <h3>Publish your data RESTfully over HTTP</h3>
+
+            <p>
+                <small>Created by <a href="http://twitter.com/martinhynar">@MartinHynar</a></small>
+            </p>
+        </section>
+
+        <section>
+            <h2>Liberator in brief</h2>
+            <p>It lives on <a
+                    href="http://clojure-liberator.github.io/liberator">http://clojure-liberator.github.io/liberator</a>
+            </p>
+
+            <p>It's goal is to setup web resources that</p>
+
+            <p>... will comply with HTTP</p>
+
+            <p>... provide means to effectivelly use HTTP properties such as caching and content negotiation</p>
+        </section>
+
+        <section>
+            <h2>Is HTTP dialogue complicated?</h2>
+
+            <p><a href="http://tools.ietf.org/html/rfc2616">RFC 2616</a>, defining HTTP/1.1 is ~180 pages long document,
+                with couple of updates. It defines vast of headers, whose processing requires putting them into
+                'symbiosis'. Extensions are also possible, and there exist large number of those (headers with X-
+                prefix)</p>
+
+            <p>In practice, there are limits on number of headers, e.g. Apache server by default allows <a
+                    href="http://httpd.apache.org/docs/2.2/mod/core.html#LimitRequestFields">100 headers</a> each
+                containing <a href="http://httpd.apache.org/docs/2.2/mod/core.html#LimitRequestFieldSize">8k of data</a>
+                (in total, not far from to 1M of header information).
+
+            <p>Having said that, <strong>HTTP dialogue is not designed for simplicity but for flexibility</strong> in
+                client-server negotiation. Of course, this comes with a cost that making a mistake in implementing it or
+                omitting some aspect is almost inevitable.</p>
+        </section>
+
+        <section>
+            <h2>... unsuitable content type</h2>
+            <ul>
+                <li>General format (e.g. semi-structured plain text) instead of nice JSON</li>
+                <li>Verbose format instead of condensed one</li>
+            </ul>
+<pre>
+<code class="HTTP">
+    GET document
+    Accept: text/plain;q=0.3,
+    application/json,
+    application/xml;q=0.9,
+    */*;q=0.5
+
+    200 OK
+    ... text/plain content ...
+</code></pre>
+        </section>
+
+        <section>
+            <h2>... unnecessary traffic and client processing</h2>
+            <ul>
+                <li>When document is claimed changed, and it is not</li>
+            </ul>
+<pre>
+<code class="HTTP">
+    GET document
+    If-Match: "tag"
+
+    412 Precondition failed
+</code></pre>
+            <hr/>
+<pre>
+<code class="HTTP">
+    GET document
+
+    200 OK
+    ... unchanged content ...
+</code></pre>
+        </section>
+
+        <section>
+            <h2>... not matching charset, language, ...</h2>
+            <ul>
+                <li>When specific charset is requested, but server blindly serves different one.</li>
+            </ul>
+<pre>
+<code class="HTTP">
+    GET document
+    Accept-Charset: ISO-8859-1, UTF-8;q=0.8
+
+    200 OK
+    Content-Type: text/plain; charset=UTF-16
+    ... data in UTF-16 because server does not care ...
+</code></pre>
+        </section>
+
+
+        <section>
+            <h2>Liberator: Declarative over imperative</h2>
+
+            <p>Inspired by <a href="https://github.com/basho/webmachine">Erlang Webmachine</a></p>
+
+            <p>The idea is to bake the HTTP semantics into the library.</p>
+
+            <p>Rather than implementing all the checks on various headers, you are given a <i>template</i> that you
+                fill in.</p>
+        </section>
+
+
+        <section>
+            <h2>Liberator's resource anatomy</h2>
+
+<pre>
+<code class="clojure" data-trim>
+    (defroutes app-routes
+        (ANY "/path/:res" [res]
+            ; Now Liberator's 2 cents
+            (resource
+            ; resource capabilities declaration
+            :allowed-methods [:get]
+            :available-media-types ["text/plain"]
+            ;decisions
+            :exists? (fn [] (resource-exists? res))
+            ;handlers
+            :handle-ok (fn [ctx] (str "Non default OK response"))
+            :handle-not-found (fn [ctx] (str res " does not exist"))
+    )))
+</code></pre>
+        </section>
+
+        <section>
+            <h2>The decision graph</h2>
+            <a href="/resources/posts/liberator/liberator-flow.svg">
+                <img height="600" src="/resources/posts/liberator/liberator-flow.svg"/>
+            </a>
+        </section>
+
+        <section>
+            <h2>Hooking in: decisions</h2>
+
+            <p>Each <a href="http://clojure-liberator.github.io/liberator/doc/decisions.html">node?</a> is so called
+                decision point and can be associated with a function that resolves it.</p>
+        </section>
+        <section>
+            <h2>Hooking in: actions</h2>
+
+            <p>When working with PUT, POST, DELETE the desired action is bound
+                to <a href="http://clojure-liberator.github.io/liberator/doc/actions.html">action key ending with !</a>
+                (:put!, :post!, :delete!)</p>
+        </section>
+
+        <section>
+            <h2>Hooking in: handlers</h2>
+
+            <p>When all eligible decisions are passed through, and response code is determined it is possible to fire
+                <a href="http://clojure-liberator.github.io/liberator/doc/handlers.html">handler function</a> (e.g.
+                :handle-ok for 200 or :handle-not-found for 404)</p>
+        </section>
+
+        <section>
+            <h2>Declarations</h2>
+
+            <p>Resources could be defined with specific set of capabilities they exhibit. These are defined using
+                declarations such as <code>:allowed-methods</code> or <code>:available-media-types</code></p>
+            <p>Using them is not mandatory, you can always use decision function.</p>
+        </section>
+
+        <section>
+            <h2>Shared context</h2>
+
+            <p>While handling the request, individual hook functions can access Liberator's shared context, store there
+                temporary information to be used by later hooks.</p>
+
+            <p>On reception of request, Liberator fills in parsed bits and pieces under dedicated keys.</p>
+
+            <p>Other keys are also dedicated for forming response (e.g. for filling additional headers). </p>
+
+<pre>
+<code class="clojure" data-trim>
+:exists? (fn [] [(resource-exists? res) {:msg " with personal message"}])
+:handle-not-found (fn [ctx] (str res " does not exist" (ctx :msg)))
+</code></pre>
+
+        </section>
+
+        <section>
+            <h2>Demo: A very little simple chat</h2>
+            <p>
+            <small><a href="https://github.com/martinhynar/samples.liberator">Chat source</a> available on GitHub.
+                </small>
+            </p>
+        </section>
+
+        <section>
+            <h1>End of story</h1>
+
+            <p>
+                <small>Meet me at Twitter <a href="http://twitter.com/martinhynar">@martinhynar</a></small>
+            </p>
+            
+        </section>
+    </div>
+</div>
+

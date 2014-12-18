@@ -1,0 +1,28 @@
+---
+layout: nil
+---
+<?xml version="1.0" encoding="utf-8"?>
+<feed xmlns="http://www.w3.org/2005/Atom">
+
+ <title>Martin Hynar</title>
+ <link href="http://martinhynar.github.com/atom.xml" rel="self"/>
+ <link href="http://martinhynar.github.com/"/>
+ <updated>{{ site.time | date_to_xmlschema }}</updated>
+ <id>http://martinhynar.github.com/</id>
+ <author>
+   <name>Martin Hynar</name>
+ </author>
+
+ {% for post in site.posts limit:20 %}
+ {% if post.category != 'creative' %}
+ <entry>
+   <title>{{ post.title | xml_escape }}</title>
+   <link href="http://martinhynar.github.com{{ post.url }}"/>
+   <updated>{{ post.date | date_to_xmlschema }}</updated>
+   <id>http://martinhynar.github.com{{ post.id }}</id>
+   <content type="html">{{ post.content | xml_escape }}</content>
+ </entry>
+ {% endif %}
+ {% endfor %}
+
+</feed>
