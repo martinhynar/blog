@@ -16,16 +16,15 @@ published: true
   <body>
     <div class="container">
       {% include header.html %}
-      
-      {% for post in site.posts %}
       <div class="panel panel-default">
-	<div class="panel-heading"><a href={{ post.url | replace_first: '/', ''}}>{{ post.title | escape}}</a></div>
 	<div class="panel-body">
-	  <p class="small"><i><small>{{ post.date | date_to_string }}</small></i></p>
-	  <p><i>{{ post.abstract }}</i></p>
+	  <p class="lead">Hello everyone!</p>
+	  <p>Feel free to get in touch. I am on
+	    Twitter <a href="https://twitter.com/martinhynar"><i class="fa fa-twitter-square"></i></a>
+	    Google+ <a href="https://plus.google.com/u/0/+MartinHynar"><i class="fa fa-google-plus-square"></i></a>
+	    or LinkedIn <a href="http://linkedin.com/in/martinhynar"><i class="fa fa-linkedin-square"></i></a>.</p>
 	</div>
       </div>
-      {% endfor %}
     </div>
   </body>
 </html>
