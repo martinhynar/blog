@@ -11,21 +11,30 @@ published: true
     <script src="http://ajax.googleapis.com/ajax/libs/jquery/2.0.0/jquery.min.js"></script>
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.1/js/bootstrap.min.js"></script>
     <meta charset="utf-8">
-    {% include google_analytics.html %}
   </head>
   <body>
     <div class="container">
       {% include header.html %}
-      
-      {% for post in site.posts %}
-      <div class="panel panel-default">
-	<div class="panel-heading"><a href={{ post.url | replace_first: '/', ''}}>{{ post.title | escape}}</a></div>
-	<div class="panel-body">
-	  <p class="small"><i><small>{{ post.date | date_to_string }}</small></i></p>
-	  <p><i>{{ post.abstract }}</i></p>
+
+      <div class="row">
+	<div class="col-lg-9">
+	  {% for post in site.posts %}
+	  <div class="panel panel-default">
+	    <div class="panel-heading"><a href={{ post.url | replace_first: '/', ''}}>{{ post.title | escape}}</a></div>
+	    <div class="panel-body">
+	      <p class="small"><i><small>{{ post.date | date_to_string }}</small></i></p>
+	      <p><i>{{ post.abstract }}</i></p>
+	    </div>
+	  </div>
+	  {% endfor %}
+
+	</div>
+	<div class="col-lg-3">
+	  <a class="twitter-timeline" href="https://twitter.com/martinhynar" data-widget-id="569464144555151360">Tweets by @martinhynar</a>
+	  <script>!function(d,s,id){var js,fjs=d.getElementsByTagName(s)[0],p=/^http:/.test(d.location)?'http':'https';if(!d.getElementById(id)){js=d.createElement(s);js.id=id;js.src=p+"://platform.twitter.com/widgets.js";fjs.parentNode.insertBefore(js,fjs);}}(document,"script","twitter-wjs");</script>
 	</div>
       </div>
-      {% endfor %}
+
     </div>
   </body>
 </html>
