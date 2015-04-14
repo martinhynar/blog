@@ -67,7 +67,7 @@ Run `curl -s -XGET  'localhost:9200/_search/scroll?scroll=1m' -d 'SCROLL ID GOES
 
 Looks simple, but making those steps require some scripting. In pure bash, it is rather complicated as you get JSON responses
 and documents sources are buried inside. To make things way easier, the best idea is to use some language that has API for
-ElasticSearch. I like Clojure, so I will use Elastisch here. (But any other language will do, maybe even better.)
+ElasticSearch. I like Clojure, so I will use Clojure here. (But any other language will do, maybe even better.)
 
 In the example curl commands above, the `scroll=1m` part indicated to ElasticSearch that the data shall be kept accessible for 1 minute.
 
@@ -75,4 +75,4 @@ Of course, you can do this using ElasticSearch REST API, it is supported, but yo
 
 <script src="https://gist.github.com/martinhynar/c2d5a8860f6e6963c974.js"></script>
 
-
+Seeing this is probably not what you want to do every time you need to reindex data. Also, this code is to illustrate things and by no means mature enough to be used in the wild. For serious cases, I recommend to go with [reindex](https://github.com/karussell/elasticsearch-reindex) plugin. Using ES plugin gives you tool that is close enough to ElasticSearch to give you reasonable performance.
