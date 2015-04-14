@@ -2,7 +2,7 @@
 layout: post
 title: "ElasticSearch - Migrate data to another index"
 abstract: "Because I want to use index with different setting that cannot be changed on existing one, typically shard count"
-tags: clojure cli
+tags: ElasticSearch Clojure
 ---
 
 You can read in ElasticSearch guide that there is no silver bullet on defining number of shards for your index. Also, for number of shards,
