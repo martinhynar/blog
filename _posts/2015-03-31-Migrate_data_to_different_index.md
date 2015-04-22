@@ -14,17 +14,7 @@ response you can expect. This is, go ahead and understand your data first.
 
 Having index created with
 
-~~~
-curl -XPUT 'http://localhost:9200/threeshards' -d '
-{
-    "settings" : {
-        "index" : {
-            "number_of_shards" : 3,
-            "number_of_replicas" : 0
-        }
-    }
-}'
-~~~
+<script src="https://gist.github.com/martinhynar/c2d5a8860f6e6963c974.js?file=threeshards.sh"></script>
 
 Check the settings of the index using `curl 'http://localhost:9200/threeshards/_settings?pretty'`
 
@@ -38,17 +28,7 @@ These are now spread across 3 shards.
 
 Now create index with different settings. In this case, different number of shards.
 
-~~~
-curl -XPUT 'http://localhost:9200/twoshards' -d '
-{
-    "settings" : {
-        "index" : {
-            "number_of_shards" : 2,
-            "number_of_replicas" : 0
-        }
-    }
-}'
-~~~
+<script src="https://gist.github.com/martinhynar/c2d5a8860f6e6963c974.js?file=twoshards.sh"></script>
 
 You can again check it with `curl 'http://localhost:9200/twoshards/_settings?pretty'`
 
