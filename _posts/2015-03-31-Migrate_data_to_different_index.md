@@ -31,11 +31,7 @@ Check the settings of the index using `curl 'http://localhost:9200/threeshards/_
 Now come the part where the data shall be generated. At this moment, you run your application and gather data. For the purpose of the example,
 lets just generate some documents artificially. E.g. 100 docs with some timestamp in it, but that does not matter now.
 
-~~~
-for i in $(seq 100); do
-   curl -s -XPOST http://localhost:9200/threeshards/test/$i?pretty -d "{ \"when\" : \"$(date --rfc-3339=ns)\"}" > /dev/null
-done;
-~~~
+<script src="https://gist.github.com/martinhynar/c2d5a8860f6e6963c974.js?file=feeddata.sh"></script>
 
 Check that documents are there with `curl 'http://localhost:9200/threeshards/_stats/docs?pretty'`. You should see something like 100 docs.
 These are now spread across 3 shards.
