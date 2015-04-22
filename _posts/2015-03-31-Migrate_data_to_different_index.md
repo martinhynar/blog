@@ -51,7 +51,7 @@ Of course, you can do this using ElasticSearch REST API, it is supported, but yo
 
 <script src="https://gist.github.com/martinhynar/c2d5a8860f6e6963c974.js?file=core.clj"></script>
 
-Note: There's also `project.clj` with all necessary dependencies needed for this code to work.
+Note: There's also [project.clj](https://gist.github.com/martinhynar/c2d5a8860f6e6963c974#file-project-clj) with all necessary dependencies needed for this code to work.
 
 Seeing this is probably not what you want to do every time you need to reindex data. Take this code as illustration of how reindexing works.
 
