@@ -7,7 +7,7 @@ tags: ElasticSearch Clojure
 
 You can read in ElasticSearch guide that there is no silver bullet on defining number of shards for your index. Also, for number of shards,
 you have no other option than define it for your index once. This is just matter of fact because other functions (e.g. routing simply counts
-with that). What you can do, and what is also recomended is to do a homework on what your data will look like, how big they gonna be and what
+with that). What you can do, and what is also recommended is to do a homework on what your data will look like, how big they gonna be and what
 response you can expect. This is, go ahead and understand your data first.
 
 ### Move data from index to another one with different settings
