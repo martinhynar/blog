@@ -4,3 +4,4 @@ extensions: [fenced_code_blocks]
 highlighter: pygments
 kramdown:
   input: GFM
+  hard_wrap: false
