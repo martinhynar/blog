@@ -1,6 +1,6 @@
 <!DOCTYPE html>
 <html>
-  <head>
+<head>
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <link href="/resources/syntax.css" rel="stylesheet" type="text/css">
     <link href="/resources/css/bootstrap.min.css" rel="stylesheet" type="text/css">
@@ -12,56 +12,70 @@
     <title>{{ page.title }}</title>
     <meta charset="utf-8">
     {% include google_analytics.html %}
-  </head>
-  <body>
-    <div class="container">
+</head>
+<body>
+<div class="container">
     <div class="navbar navbar-default">
-      <div class="navbar-header">
-	<button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-responsive-collapse">
-	  <span class="icon-bar"></span>
-	  <span class="icon-bar"></span>
-	  <span class="icon-bar"></span>
-	</button>
-	<a class="navbar-brand" href="#">Martin Hynar</a>
-      </div>
-      <div class="navbar-collapse collapse navbar-responsive-collapse">
-	<ul class="nav navbar-nav">
-	  <li><a href="/">Blog</a></li>
-	</ul>
+        <div class="navbar-header">
+            <button type="button" class="navbar-toggle" data-toggle="collapse"
+                    data-target=".navbar-responsive-collapse">
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+            </button>
+            <a class="navbar-brand" href="#">Martin Hynar</a>
+        </div>
+        <div class="navbar-collapse collapse navbar-responsive-collapse">
+            <ul class="nav navbar-nav">
+                <li><a href="/">Blog</a></li>
+            </ul>
 
-	<ul class="nav navbar-nav navbar-right">
-	  <li><a href="https://twitter.com/martinhynar"><i class="fa fa-twitter-square"></i></a></li>
-	  <li><a href="https://plus.google.com/u/0/+MartinHynar"><i class="fa fa-google-plus-square"></i></a></li>
-	  <li><a href="http://linkedin.com/in/martinhynar"><i class="fa fa-linkedin-square"></i></a></li>
-	</ul>
-      </div>
+            <ul class="nav navbar-nav navbar-right">
+                <li><a href="https://twitter.com/martinhynar"><i class="fa fa-twitter-square"></i></a></li>
+                <li><a href="https://plus.google.com/u/0/+MartinHynar"><i class="fa fa-google-plus-square"></i></a></li>
+                <li><a href="http://linkedin.com/in/martinhynar"><i class="fa fa-linkedin-square"></i></a></li>
+            </ul>
+        </div>
     </div>
-    
+
+
     <div class="panel panel-default">
-      <div class="panel-body">
-	<div class="h2">
-	  {{ page.title  | xml_escape }}
-	</div>
-	<div id="a">{{ content }}</div>
-	{% if page.tags.size < 0 %}
-	<div id="tags">post {% if page.tags.size == 1 %}tag{% else %}tags{% endif %}: {% for tag in page.tags %}<a href="/#{{tag}}">{{tag}}</a>{% endfor %}
-	</div>
-	{% endif %}  
-      </div>
+
+
+        <div class="panel-body">
+            <div class="text-right">
+                <a href="https://twitter.com/share" class="twitter-share-button" data-via="martinhynar">Tweet</a>
+                <script>!function(d,s,id){var js,fjs=d.getElementsByTagName(s)[0],p=/^http:/.test(d.location)?'http':'https';if(!d.getElementById(id)){js=d.createElement(s);js.id=id;js.src=p+'://platform.twitter.com/widgets.js';fjs.parentNode.insertBefore(js,fjs);}}(document, 'script', 'twitter-wjs');</script>
+            </div>
+            <div class="h2">
+                {{ page.title | xml_escape }}
+            </div>
+            <div id="a">{{ content }}</div>
+            {% if page.tags.size < 0 %}
+            <div id="tags">post {% if page.tags.size == 1 %}tag{% else %}tags{% endif %}: {% for tag in page.tags %}<a
+                    href="/#{{tag}}">{{tag}}</a>{% endfor %}
+            </div>
+            {% endif %}
+        </div>
     </div>
 
     <div id="comments" class="panel panel-default">
-      <div class="panel-body" id="disqus_thread"></div>
-      <a href="http://disqus.com" class="dsq-brlink attribution">blog comments powered by <span class="logo-disqus">Disqus</span></a>
+        <div class="panel-body" id="disqus_thread"></div>
+        <a href="http://disqus.com" class="dsq-brlink attribution">blog comments powered by <span class="logo-disqus">Disqus</span></a>
     </div>
-    <script  type="text/javascript">
+    <script type="text/javascript">
       {% if page.disqus_id %}var disqus_identifier = {{ page.disqus_id }};{% else %}var disqus_identifier = '{{ page.url }}';{% endif %}
       (function() {
       var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
       dsq.src = 'http://martinhynar.disqus.com/embed.js';
       (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
       })();
+
+
+
+
     </script>
 
-    </div>
-</body></html>
+</div>
+</body>
+</html>
