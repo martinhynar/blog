@@ -84,4 +84,4 @@ Now we have both trust and key stores prepared. The next step is to incorporate 
 method snippet creates DefaultHttpClient instance. The DefaultHttpClient is the class from Apache's HttpClient library
 that wraps communication with the counterpart. On this instance you are running all the request, etc.
 
-<script src="https://gist.github.com/martinhynar/06ec843655df89c9d852"></script>
+<script src="https://gist.github.com/martinhynar/06ec843655df89c9d852.js"></script>
