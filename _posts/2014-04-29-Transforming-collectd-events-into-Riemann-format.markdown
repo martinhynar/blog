@@ -7,9 +7,9 @@ abstract: "How to split n-value events gathered with collectd into events that c
 
 -----
 
-<script type="text/javascript" src="https://raw.githubusercontent.com/DmitryBaranovskiy/raphael/master/raphael-min.js"></script>
-<script type="text/javascript" src="https://raw.githubusercontent.com/jashkenas/underscore/master/underscore-min.js"></script>
-<script type="text/javascript" src="https://raw.githubusercontent.com/bramp/js-sequence-diagrams/master/build/sequence-diagram-min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/raphael/2.1.4/raphael-min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/underscore.js/1.8.3/underscore-min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/js-sequence-diagrams/1.0.6/sequence-diagram-min.js"></script>
 
 For one of my projects, I needed to collect various statistics about resource utilization in order to detect that something went wrong and be able to reason about what could be the cause of it. Because of other requiements and goals that are not important here, I ended up with this setup
 
