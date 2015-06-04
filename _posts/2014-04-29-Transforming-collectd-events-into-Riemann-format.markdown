@@ -14,19 +14,12 @@ abstract: "How to split n-value events gathered with collectd into events that c
 For one of my projects, I needed to collect various statistics about resource utilization in order to detect that something went wrong and be able to reason about what could be the cause of it. Because of other requiements and goals that are not important here, I ended up with this setup
 
 <div class="diagram">
-collectd->logstash:
-logstash->riemann:
+collectd->logstash: Raw data in collectd format
+logstash->riemann: Riemann-compatible JSON events
 </div>
 <script>
 $(".diagram").sequenceDiagram({theme: 'hand'});
 </script>
-
-    +--Monitored Node------------+
-    |  +--------+     +--------+ |          +-------+
-    |  |collectd| --> |logstash| ---------> |Riemann|
-    |  +--------+     +--------+ |          +-------+
-    +----------------------------+
-
 
 In this setup, [collectd](collectd.org) gathers effectively resource stats and passes them to [LogStash](logstash.net) via its [collectd input](http://logstash.net/docs/1.4.0/inputs/collectd). Further, in Riemann I do some magic to detect whether some resources are at the levels that might affect running services, but that is different topic. So, now it is the task LogStash to prepare an event that [Riemann](riemann.io) expects. This is, event of this format
 
