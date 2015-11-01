@@ -1,6 +1,6 @@
 ---
 layout: post
-title: "Cleaning obsolete packags after Fedora upgrade using DNF"
+title: "Cleaning obsolete packages after Fedora upgrade using DNF"
 abstract: "With introduction of the new package management tool - DNF, some tools originally available as YUM commands or supplementary apps are now available directly as DNF switches or commands."
 tags: Fedora
 ---
